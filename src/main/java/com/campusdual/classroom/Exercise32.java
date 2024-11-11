@@ -2,9 +2,7 @@ package com.campusdual.classroom;
 
 import com.campusdual.util.Utils;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class Exercise32 {
 
@@ -13,7 +11,11 @@ public class Exercise32 {
     }
 
     public static String generateStringToSave(String string) {
-
+        if (string != null){
+            return string;
+        }else {
+            return generateUserInputToSave();
+        }
     }
 
     private static String generateUserInputToSave(){
@@ -27,7 +29,15 @@ public class Exercise32 {
     }
 
     public static void printToFile(String string) {
+        String filePath = "src/main/resources/data.txt";
+        File file = new File(filePath);
+        file.getParentFile().mkdirs();
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
+            writer.write(string);
+        } catch (IOException e) {
+            System.out.println("Ha habido un fallo a la hora de escribir el fichero: " + e.getMessage());
+        }
     }
 
 
